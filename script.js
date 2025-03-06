@@ -1,36 +1,25 @@
-//your JS code here. If required.
-// Get references to HTML elements
-const textInput = document.getElementById("text");
-const delayInput = document.getElementById("delay");
-const btn = document.getElementById("btn");
-const outputDiv = document.getElementById("output");
 
-// Function to create a delay using Promise
 function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Async function to handle message display
-async function showMessage() {
-    const message = textInput.value;
-    const delayTime = parseInt(delayInput.value);
-
-    // Check for valid input
-    if (!message || isNaN(delayTime) || delayTime < 0) {
-        outputDiv.innerText = "Please enter valid text and delay time!";
+async function showMessageAfterDelay() {
+    const textInput = document.getElementById('text').value;
+    const delayInput = document.getElementById('delay').value;
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerText = '';
+    if (!textInput || isNaN(delayInput) || delayInput <= 0) {
+        outputDiv.innerText = 'Please enter a valid message and delay time.';
         return;
     }
 
-    outputDiv.innerText = "Waiting...";
+    // Show loading message
+    outputDiv.innerText = 'Waiting...';
 
-    // Wait for the specified delay
-    await delay(delayTime);
+    await delay(parseInt(delayInput));
 
-    // Show the message after the delay
-    outputDiv.innerText = message;
+   
+    outputDiv.innerText = textInput;
 }
-
-// Add click event listener to the button
-btn.addEventListener("click", showMessage);
-
-// Ready to test! Let me know if you want any adjustments 🚀
+const btn = document.getElementById('btn');
+btn.addEventListener('click', showMessageAfterDelay);
